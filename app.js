@@ -12,7 +12,7 @@ const {
   login,
   createUser,
 } = require('./controllers/users');
-const NotFoundError = require('./errors/404-error');
+// const NotFoundError = require('./errors/404-error');
 
 const { PORT = 3000 } = process.env;
 const app = express();
