@@ -9,9 +9,9 @@ const error = require('./middlewares/error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DB_URL } = process.env;
 const app = express();
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect(`${NODE_ENV === 'production' ? DB_URL : 'mongodb://localhost:27017/bitfilmsdb'}`);
 app.use(requestLogger);
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
