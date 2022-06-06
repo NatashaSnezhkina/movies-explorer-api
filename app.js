@@ -17,25 +17,9 @@ app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 app.use(helmet());
 app.use(cookieParser());
-
-// app.post('/signup', celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().min(2).max(30),
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required(),
-//   }),
-// }), createUser);
-
-// app.post('/signin', celebrate({
-//   body: Joi.object().keys({
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required(),
-//   }),
-// }), login);
-
+app.use(router);
 app.use(errorLogger);
 app.use(errors());
 app.use(error);
-app.use(router);
 
 app.listen(PORT);
