@@ -21,7 +21,7 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    // movieId,
+    movieId,
   } = req.body;
 
   Movie.create({
@@ -35,6 +35,7 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
+    movieId,
     owner: req.user._id,
   })
     .then((movie) => res.send({
@@ -48,13 +49,14 @@ module.exports.createMovie = (req, res, next) => {
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
       thumbnail: movie.thumbnail,
-      movieId: movie.id,
+      movieId: movie.movieId,
+      _id: movie._id,
       owner: movie.owner,
       createdAt: movie.createdAt,
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new IncorrectDataError('Переданы некорректные данные при создании карточки'));
+        next(new IncorrectDataError('Переданы некорректные данные при создании фильма'));
       }
       next(err);
     });
@@ -65,36 +67,22 @@ module.exports.deleteMovie = (req, res, next) => {
 
   Movie.findById(req.params.movieId)
     .orFail(() => {
-      throw new NotFoundError('Карточка не найдена');
+      throw new NotFoundError('Фильм не найден');
     })
     .then((movie) => {
       if (userId !== movie.owner.toString()) {
-        throw new ForbiddenError('Вы не можете удалять чужие карточки');
+        throw new ForbiddenError('Вы не можете удалять чужие фильмы');
       }
 
       Movie.findByIdAndRemove(req.params.movieId)
         .then((deletedMovie) => {
-          res.send({
-            country: deletedMovie.country,
-            director: deletedMovie.director,
-            duration: deletedMovie.duration,
-            year: deletedMovie.year,
-            description: deletedMovie.description,
-            image: deletedMovie.image,
-            trailerLink: deletedMovie.trailerLink,
-            nameRU: deletedMovie.nameRU,
-            nameEN: deletedMovie.nameEN,
-            thumbnail: deletedMovie.thumbnail,
-            movieId: deletedMovie.id,
-            owner: deletedMovie.owner,
-            createdAt: deletedMovie.createdAt,
-          });
+          res.send(deletedMovie);
         })
         .catch(next);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new IncorrectDataError('Переданы некорректные данные при удалении карточки'));
+        next(new IncorrectDataError('Переданы некорректные данные при удалении фильма'));
       }
       next(err);
     });

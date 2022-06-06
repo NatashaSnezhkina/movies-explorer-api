@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
@@ -52,11 +51,10 @@ const movieSchema = new mongoose.Schema({
     required: true,
     ref: 'user',
   },
-  // movieId: {
-  //   type: mongoose.Schema.Types.ObjectId, //не уверена, что так
-  //   required: true,
-  //   ref: 'movie',
-  // },
+  movieId: {
+    type: Number,
+    required: true,
+  },
   nameRU: {
     type: String,
     required: true,

@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend of diploma",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/NatashaSnezhkina/movies-explorer-api.git"
   },
-  "author": "",
+  "author": "Natalia",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/NatashaSnezhkina/movies-explorer-api/issues"
