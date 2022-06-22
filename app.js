@@ -22,5 +22,6 @@ app.use(router);
 app.use(errorLogger);
 app.use(errors());
 app.use(error);
+app.use(cors);
 
 app.listen(PORT);
