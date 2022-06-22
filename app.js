@@ -8,6 +8,7 @@ const { errors } = require('celebrate');
 const error = require('./middlewares/error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
+const cors = require('./middlewares/cors');
 
 const { PORT = 3000, NODE_ENV, DB_URL } = process.env;
 const app = express();
